@@ -5,6 +5,12 @@ const fs = require('fs');
 
 const app = express();
 app.use(express.json());
+
+// /admin → admin.html を提供（static より前に定義）
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Notion クライアント（APIキーが設定されている場合のみ有効化）

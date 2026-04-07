@@ -8,17 +8,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --brown-dark:   #4a2c1a;
-      --brown-mid:    #7b4f35;
-      --brown-light:  #c8a882;
-      --cream:        #f7f2ec;
-      --cream-dark:   #ede5d9;
-      --red:          #d94040;
-      --green:        #2d8a4e;
-      --text:         #2d1f14;
-      --text-sub:     #7a6050;
-      --tab-h:        62px;
-      --header-h:     52px;
+      --brown-dark:  #4a2c1a;
+      --brown-mid:   #7b4f35;
+      --brown-light: #c8a882;
+      --cream:       #f7f2ec;
+      --cream-dark:  #ede5d9;
+      --red:         #d94040;
+      --text:        #2d1f14;
+      --text-sub:    #7a6050;
+      --header-h:    52px;
     }
 
     body {
@@ -26,10 +24,9 @@
       background: var(--cream);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom));
+      padding-bottom: 20px;
     }
 
-    /* ── ヘッダー ── */
     .header {
       position: sticky; top: 0; z-index: 100;
       height: var(--header-h);
@@ -40,30 +37,6 @@
       letter-spacing: .04em;
     }
 
-    /* ── タブバー（下固定）── */
-    .tab-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      height: var(--tab-h);
-      background: var(--brown-dark);
-      display: flex;
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    .tab-btn {
-      flex: 1;
-      background: none; border: none; color: rgba(255,255,255,.55);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 3px; cursor: pointer; font-size: 11px; font-weight: 600;
-      transition: background .15s, color .15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .tab-btn .ico { font-size: 22px; line-height: 1; }
-    .tab-btn.active { color: #fff; background: rgba(255,255,255,.12); }
-
-    /* ── スクリーン ── */
-    .screen { display: none; padding: 14px; }
-    .screen.active { display: block; }
-
-    /* ── 販売入力 ── */
     .product-card {
       background: #fff;
       border-radius: 14px;
@@ -102,6 +75,8 @@
     }
     .qty-val.neg { color: var(--red); }
 
+    #main { padding: 14px; }
+
     .submit-btn {
       width: 100%; padding: 16px;
       background: var(--brown-dark); color: #fff;
@@ -113,81 +88,6 @@
     .submit-btn:disabled { opacity: .5; cursor: default; }
     .submit-btn:active   { opacity: .8; }
 
-    /* ── 集計 ── */
-    .sub-tabs {
-      display: flex; background: #fff; border-radius: 10px;
-      overflow: hidden; margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.08);
-    }
-    .sub-tab {
-      flex: 1; padding: 11px 8px; background: none; border: none;
-      font-size: 14px; font-weight: 700; color: var(--text-sub); cursor: pointer;
-    }
-    .sub-tab.active { background: var(--brown-dark); color: #fff; }
-
-    .date-strip {
-      display: flex; gap: 7px;
-      overflow-x: auto; padding-bottom: 6px; margin-bottom: 14px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .date-strip::-webkit-scrollbar { display: none; }
-    .date-chip {
-      padding: 6px 14px; background: #fff; border: 2px solid #ddd;
-      border-radius: 20px; cursor: pointer; white-space: nowrap;
-      font-size: 13px; font-weight: 600; color: var(--text-sub);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .date-chip.active { background: var(--brown-dark); color: #fff; border-color: var(--brown-dark); }
-
-    .tbl-wrap { overflow-x: auto; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-    table {
-      width: 100%; border-collapse: collapse;
-      background: #fff; font-size: 12.5px;
-      min-width: 420px;
-    }
-    thead tr { background: var(--brown-dark); color: #fff; }
-    th, td { padding: 9px 8px; text-align: right; }
-    th:first-child, td:first-child { text-align: left; }
-    td:first-child { max-width: 120px; word-break: break-all; font-size: 12px; }
-    tbody tr:nth-child(even) { background: var(--cream); }
-    tfoot tr { background: var(--brown-mid); color: #fff; font-weight: 700; }
-
-    /* ── 損益計算 ── */
-    .pnl-section { margin-bottom: 14px; }
-    .pnl-title {
-      font-size: 12px; font-weight: 700; color: var(--text-sub);
-      letter-spacing: .08em; text-transform: uppercase;
-      margin-bottom: 6px; padding-left: 4px;
-    }
-    .pnl-card {
-      background: #fff; border-radius: 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.08);
-      overflow: hidden;
-    }
-    .pnl-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 16px; border-bottom: 1px solid var(--cream-dark);
-      font-size: 14px;
-    }
-    .pnl-row:last-child { border-bottom: none; }
-    .pnl-row .label { color: var(--text-sub); }
-    .pnl-row .value { font-weight: 600; }
-    .pnl-row.big .label { font-weight: 700; color: var(--text); font-size: 15px; }
-    .pnl-row.big .value { font-size: 15px; font-weight: 800; }
-    .pnl-row.total-rev .value { color: var(--brown-mid); font-size: 18px; }
-    .pnl-row.result-pos .value { color: var(--green);  font-size: 20px; font-weight: 900; }
-    .pnl-row.result-neg .value { color: var(--red);    font-size: 20px; font-weight: 900; }
-    .pnl-row.sub { background: var(--cream); }
-    .pnl-row.sub .label { font-size: 13px; padding-left: 8px; }
-    .pnl-row.sub .value { font-size: 13px; }
-    .pnl-row.divider { border-top: 2px solid var(--cream-dark); }
-
-    /* ── 共通 ── */
-    .no-data {
-      text-align: center; color: var(--text-sub);
-      padding: 40px 16px; font-size: 14px;
-    }
     .toast {
       position: fixed; top: calc(var(--header-h) + 10px); left: 50%;
       transform: translateX(-50%) translateY(-8px);
@@ -198,69 +98,24 @@
       white-space: nowrap;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .section-label {
-      font-size: 13px; font-weight: 700; color: var(--brown-mid);
-      margin: 16px 0 8px 4px;
-    }
   </style>
 </head>
 <body>
 
-<div class="header" id="pageTitle">イベント販売管理</div>
+<div class="header">販売入力</div>
 <div class="toast" id="toast"></div>
 
-<!-- ─── 画面①：販売入力 ─── -->
-<div id="screen-sales" class="screen active">
+<div id="main">
   <div id="productList"></div>
   <button class="submit-btn" id="submitBtn" onclick="submitSales()">送信</button>
 </div>
 
-<!-- ─── 画面②：集計 ─── -->
-<div id="screen-summary" class="screen">
-  <div class="sub-tabs">
-    <button class="sub-tab active" id="subtab-daily"  onclick="switchSubTab('daily')">日別</button>
-    <button class="sub-tab"        id="subtab-total"  onclick="switchSubTab('total')">6日間累計</button>
-  </div>
-
-  <div id="view-daily">
-    <div class="date-strip" id="dateStrip"></div>
-    <div class="tbl-wrap" id="dailyTable"></div>
-  </div>
-  <div id="view-total" style="display:none">
-    <div class="tbl-wrap" id="totalTable"></div>
-  </div>
-</div>
-
-<!-- ─── 画面③：損益計算 ─── -->
-<div id="screen-pnl" class="screen">
-  <div id="pnlContent"></div>
-</div>
-
-<!-- ─── タブバー ─── -->
-<div class="tab-bar">
-  <button class="tab-btn active" id="tabBtn-sales"   onclick="switchScreen('sales')">
-    <span class="ico">🛒</span><span>販売入力</span>
-  </button>
-  <button class="tab-btn"        id="tabBtn-summary" onclick="switchScreen('summary')">
-    <span class="ico">📊</span><span>集計</span>
-  </button>
-  <button class="tab-btn"        id="tabBtn-pnl"     onclick="switchScreen('pnl')">
-    <span class="ico">💰</span><span>損益計算</span>
-  </button>
-</div>
-
 <script>
-// ─── 状態 ───────────────────────────────────────────────────────────────────
-let products    = [];
-let quantities  = {};           // { productId: delta }
-let summaryData = null;
-let selectedDate = null;
-let subTabMode  = 'daily';
+let products   = [];
+let quantities = {};
 
-// ─── 初期化 ──────────────────────────────────────────────────────────────────
 (async function init() { await loadProducts(); })();
 
-// ─── 商品一覧読み込み ────────────────────────────────────────────────────────
 async function loadProducts() {
   try {
     const res = await fetch('/api/products');
@@ -270,7 +125,7 @@ async function loadProducts() {
 }
 
 function renderProductList() {
-  const html = products.map(p => {
+  document.getElementById('productList').innerHTML = products.map(p => {
     const qty = quantities[p.id] || 0;
     const stockClass = p.remainingStock <= 0 ? 'stock-zero' : p.remainingStock <= 3 ? 'stock-low' : '';
     const stockWarn  = p.remainingStock <= 0
@@ -292,7 +147,6 @@ function renderProductList() {
         </div>
       </div>`;
   }).join('');
-  document.getElementById('productList').innerHTML = html;
 }
 
 function changeQty(id, delta) {
@@ -302,7 +156,6 @@ function changeQty(id, delta) {
   el.className = 'qty-val' + (quantities[id] < 0 ? ' neg' : '');
 }
 
-// ─── 販売送信 ────────────────────────────────────────────────────────────────
 async function submitSales() {
   const items = Object.entries(quantities)
     .filter(([, q]) => q !== 0)
@@ -329,195 +182,6 @@ async function submitSales() {
   finally { btn.disabled = false; btn.textContent = '送信'; }
 }
 
-// ─── 画面切り替え ────────────────────────────────────────────────────────────
-const TITLES = { sales: '販売入力', summary: '集計', pnl: '損益計算' };
-
-function switchScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(`screen-${name}`).classList.add('active');
-  document.getElementById(`tabBtn-${name}`).classList.add('active');
-  document.getElementById('pageTitle').textContent = TITLES[name];
-
-  if (name === 'summary') loadSummary();
-  if (name === 'pnl')     loadPnl();
-}
-
-// ─── 集計 ────────────────────────────────────────────────────────────────────
-function switchSubTab(mode) {
-  subTabMode = mode;
-  document.getElementById('subtab-daily').classList.toggle('active', mode === 'daily');
-  document.getElementById('subtab-total').classList.toggle('active', mode === 'total');
-  document.getElementById('view-daily').style.display = mode === 'daily' ? '' : 'none';
-  document.getElementById('view-total').style.display = mode === 'total' ? '' : 'none';
-}
-
-async function loadSummary() {
-  try {
-    const res = await fetch('/api/summary');
-    summaryData = await res.json();
-    renderSummary();
-  } catch { showToast('集計データの読み込みに失敗しました'); }
-}
-
-function renderSummary() {
-  const dates = Object.keys(summaryData.byDate).sort();
-
-  // 日付チップ
-  const strip = document.getElementById('dateStrip');
-  if (!dates.length) {
-    strip.innerHTML = '<span style="color:var(--text-sub);font-size:13px">データなし</span>';
-    document.getElementById('dailyTable').innerHTML = '<div class="no-data">まだ販売データがありません</div>';
-  } else {
-    if (!selectedDate || !dates.includes(selectedDate)) selectedDate = dates[dates.length - 1];
-    strip.innerHTML = dates.map(d =>
-      `<button class="date-chip ${d === selectedDate ? 'active' : ''}" onclick="selectDate('${d}')">${d}</button>`
-    ).join('');
-    renderDailyTable();
-  }
-
-  renderTotalTable();
-}
-
-function selectDate(d) {
-  selectedDate = d;
-  document.querySelectorAll('.date-chip').forEach(el =>
-    el.classList.toggle('active', el.textContent === d)
-  );
-  renderDailyTable();
-}
-
-function buildTable(dataObj) {
-  const rows = Object.values(dataObj).filter(r => r.quantity !== 0);
-  if (!rows.length) return '<div class="no-data">データがありません</div>';
-
-  const totQty = rows.reduce((s, r) => s + r.quantity, 0);
-  const totRev = rows.reduce((s, r) => s + r.revenue,  0);
-  const totCst = rows.reduce((s, r) => s + r.cost,     0);
-  const totGrs = totRev - totCst;
-
-  const bodyHtml = rows.map(r => {
-    const gross   = r.revenue - r.cost;
-    const costPct = r.revenue ? (r.cost / r.revenue * 100).toFixed(1) : '—';
-    return `<tr>
-      <td>${e(r.productName)}</td>
-      <td>${r.quantity}</td>
-      <td>¥${fmt(r.revenue)}</td>
-      <td>¥${fmt(r.cost)}</td>
-      <td>¥${fmt(gross)}</td>
-      <td>${costPct}%</td>
-    </tr>`;
-  }).join('');
-
-  const totCostPct = totRev ? (totCst / totRev * 100).toFixed(1) : '—';
-
-  return `
-    <table>
-      <thead><tr>
-        <th>商品名</th><th>数量</th><th>売上</th><th>原価</th><th>粗利</th><th>原価率</th>
-      </tr></thead>
-      <tbody>${bodyHtml}</tbody>
-      <tfoot><tr>
-        <td>合計</td>
-        <td>${totQty}</td>
-        <td>¥${fmt(totRev)}</td>
-        <td>¥${fmt(totCst)}</td>
-        <td>¥${fmt(totGrs)}</td>
-        <td>${totCostPct}%</td>
-      </tr></tfoot>
-    </table>`;
-}
-
-function renderDailyTable() {
-  document.getElementById('dailyTable').innerHTML =
-    (selectedDate && summaryData.byDate[selectedDate])
-      ? buildTable(summaryData.byDate[selectedDate])
-      : '<div class="no-data">データがありません</div>';
-}
-
-function renderTotalTable() {
-  document.getElementById('totalTable').innerHTML = buildTable(summaryData.overall);
-}
-
-// ─── 損益計算 ────────────────────────────────────────────────────────────────
-async function loadPnl() {
-  try {
-    const res = await fetch('/api/pnl');
-    const d   = await res.json();
-    renderPnl(d);
-  } catch { showToast('損益データの読み込みに失敗しました'); }
-}
-
-function renderPnl(d) {
-  const profClass = d.operatingProfit >= 0 ? 'result-pos' : 'result-neg';
-  const profSign  = d.operatingProfit >= 0 ? '+' : '';
-
-  document.getElementById('pnlContent').innerHTML = `
-
-    <div class="pnl-section">
-      <div class="pnl-title">売上</div>
-      <div class="pnl-card">
-        <div class="pnl-row total-rev big">
-          <span class="label">売上合計</span>
-          <span class="value">¥${fmt(d.totalRevenue)}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pnl-section">
-      <div class="pnl-title">費用内訳</div>
-      <div class="pnl-card">
-        <div class="pnl-row sub">
-          <span class="label">売上原価</span>
-          <span class="value">¥${fmt(d.expenses.cogs)}</span>
-        </div>
-        <div class="pnl-row sub">
-          <span class="label">出店料（売上×25%）</span>
-          <span class="value">¥${fmt(d.expenses.boothFee)}</span>
-        </div>
-        <div class="pnl-row sub">
-          <span class="label">宿泊費</span>
-          <span class="value">¥${fmt(d.expenses.accommodation)}</span>
-        </div>
-        <div class="pnl-row sub">
-          <span class="label">交通費</span>
-          <span class="value">¥${fmt(d.expenses.transportation)}</span>
-        </div>
-        <div class="pnl-row sub">
-          <span class="label">アルバイト代</span>
-          <span class="value">¥${fmt(d.expenses.partTime)}</span>
-        </div>
-        <div class="pnl-row divider big">
-          <span class="label">費用合計</span>
-          <span class="value">¥${fmt(d.totalExpenses)}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pnl-section">
-      <div class="pnl-title">利益</div>
-      <div class="pnl-card">
-        <div class="pnl-row">
-          <span class="label">粗利</span>
-          <span class="value">¥${fmt(d.grossProfit)}
-            <small style="font-size:11px;color:var(--text-sub);font-weight:400">
-              （粗利率 ${d.grossProfitRate}%）
-            </small>
-          </span>
-        </div>
-        <div class="pnl-row divider ${profClass} big">
-          <span class="label">営業利益</span>
-          <span class="value">${profSign}¥${fmt(Math.abs(d.operatingProfit))}
-            <small style="font-size:12px;font-weight:600;margin-left:4px">
-              ${profSign}${d.operatingProfitRate}%
-            </small>
-          </span>
-        </div>
-      </div>
-    </div>`;
-}
-
-// ─── ユーティリティ ──────────────────────────────────────────────────────────
 function fmt(n) { return Math.round(n).toLocaleString('ja-JP'); }
 function e(s)   { return String(s).replace(/[&<>"']/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
