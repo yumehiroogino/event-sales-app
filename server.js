@@ -27,10 +27,10 @@ const PRODUCTS = [
   { id: 2, name: 'ウォルカ・サカロ',        price: 1930, cost:  537, stock:  15 },
   { id: 3, name: 'ウリ',                    price: 2300, cost:  535, stock:   9 },
   { id: 4, name: 'ラス ブルガス',           price: 2520, cost:  542, stock:   5 },
-  { id: 5, name: 'カフェオレベース＋DBセット', price: 4200, cost: 1635, stock:  22 },
+  { id: 5, name: 'カフェオレベース＋DBセット', price: 4200, cost: 1635, stock:  13 },
   { id: 6, name: 'ドリップバッグBOX',       price: 1500, cost:  360, stock:  75 },
   { id: 7, name: 'ドリップバッグ4個入り',   price: 1200, cost:  360, stock: 100 },
-  { id: 8, name: 'カフェオレベース',        price: 2200, cost:  915, stock:  22 },
+  { id: 8, name: 'カフェオレベース',        price: 2200, cost:  915, stock:  13 },
   { id: 9, name: 'HARIOフィルター',         price:  440, cost:  264, stock:  20 },
 ];
 
