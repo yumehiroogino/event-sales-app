@@ -221,6 +221,47 @@ app.get('/api/pnl', (req, res) => {
   });
 });
 
+// ─── API: リセット（要認証）──────────────────────────────────────────────────
+app.post('/api/reset', async (req, res) => {
+  const { password } = req.body;
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+  if (!ADMIN_PASSWORD) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD が設定されていません' });
+  }
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'パスワードが違います' });
+  }
+
+  // ローカルデータをリセット
+  saveSales([]);
+
+  // Notion の全データを削除（アーカイブ）
+  let notionDeleted = 0;
+  if (notion && DATABASE_ID) {
+    try {
+      let cursor;
+      do {
+        const r = await notion.databases.query({
+          database_id: DATABASE_ID,
+          page_size: 100,
+          ...(cursor ? { start_cursor: cursor } : {}),
+        });
+        for (const p of r.results) {
+          await notion.pages.update({ page_id: p.id, archived: true });
+          notionDeleted++;
+        }
+        cursor = r.has_more ? r.next_cursor : null;
+      } while (cursor);
+    } catch (err) {
+      console.error('[Reset] Notion削除エラー:', err.message);
+    }
+  }
+
+  console.log(`[Reset] sales.json をリセット / Notion ${notionDeleted}件削除`);
+  res.json({ success: true, notionDeleted });
+});
+
 // ─── サーバー起動 ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
